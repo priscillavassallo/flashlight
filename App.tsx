@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import imageon from './assets/icons/eco-light.png';
 import imageoff from './assets/icons/eco-light-off.png';
+import Torch from 'react-native-torch';
 
 const App = () => {
   const [toggle, setToggle] = useState(false);
 
   const handleChangeToggle = () => setToggle(oldToggle => !oldToggle);
+
+  useEffect(() => {
+    Torch.switchState(toggle);
+  }, [toggle]);
 
   return (
     <View style={toggle ? style.containerLight : style.container}>
