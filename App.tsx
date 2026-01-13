@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import imageon from './assets/icons/eco-light.png';
 import imageoff from './assets/icons/eco-light-off.png';
 import Torch from 'react-native-torch';
+import RNShake from 'react-native-shake';
 
 const App = () => {
   const [toggle, setToggle] = useState(false);
@@ -12,6 +13,14 @@ const App = () => {
   useEffect(() => {
     Torch.switchState(toggle);
   }, [toggle]);
+
+  useEffect(() => {
+    const subscription = RNShake.addListener(() => {
+      handleChangeToggle();
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   return (
     <View style={toggle ? style.containerLight : style.container}>
