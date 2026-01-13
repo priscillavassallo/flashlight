@@ -1,17 +1,21 @@
-import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import imagex from './assets/icons/eco-light.png';
-import imagexoff from './assets/icons/eco-light-off.png';
+import React, { useState } from 'react';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import imageon from './assets/icons/eco-light.png';
+import imageoff from './assets/icons/eco-light-off.png';
 
 const App = () => {
-  const toggle = false;
+  const [toggle, setToggle] = useState(false);
+
+  const handleChangeToggle = () => setToggle(oldToggle => !oldToggle);
 
   return (
     <View style={toggle ? style.containerLight : style.container}>
-      <Image
-        style={toggle ? style.lightingOn : style.lightingOn}
-        source={toggle ? imagex : imagexoff}
-      />
+      <TouchableOpacity onPress={handleChangeToggle}>
+        <Image
+          style={toggle ? style.lightingOn : style.lightingOff}
+          source={toggle ? imageon : imageoff}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
